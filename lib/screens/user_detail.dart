@@ -29,46 +29,40 @@ class _UserDetailPageState extends State<UserDetailPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              'Nombres Completos',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: size.height * 0.02),
-            ),
-            Text(
-              '${widget.userData['name']} ${widget.userData['lastName']}',
-              style: TextStyle(fontSize: size.height * 0.02),
-            ),
-            //Text('Apellido: ${widget.userData['lastName'] ?? 'No disponible'}'),
-            Text('Correo Electronico',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: size.height * 0.02)),
-            //Text('Correo: ${widget.userData['email'] ?? 'No disponible'}'),
-            Text('${widget.userData['email']}',
-                style: TextStyle(fontSize: size.height * 0.02)),
-            Text('Nivel de acceso actual',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: size.height * 0.02)),
-            Text('${widget.userData['clearance']}'),
+            userDetails(
+                'Nombres Completos',
+                '${widget.userData['name']} ${widget.userData['lastName']}',
+                size),
+            userDetails(
+                'Correo Electronico', '${widget.userData['email']}', size),
+            userDetails('Nivel de acceso actual',
+                '${widget.userData['clearance']}', size),
             if (widget.userData['clearance'] == 1) ...[
-              Container(
-                child: TextButton(
-                    onPressed: () async {
-                      flag = true;
-                      await update.upgradeClearance(widget.uid, flag);
-                      Navigator.pop(context);
-                    },
-                    child: Text('Aumentar nivel de acceso 2')),
+              GestureDetector(
+                onTap: () async {
+                  flag = true;
+                  await update.upgradeClearance(widget.uid, flag);
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.purple.shade100,
+                      borderRadius: BorderRadius.circular(12)),
+                  padding: EdgeInsets.all(12),
+                  child: Text('Aumentar el nivel de acceso'),
+                ),
               ),
             ],
             if (widget.userData['clearance'] != 1) ...[
-              Container(
-                child: TextButton(
-                    onPressed: () async {
-                      flag = false;
-                      await update.upgradeClearance(widget.uid, flag);
-                      Navigator.pop(context);
-                    },
-                    child: Text('Disminuir nivel de acceso')),
+              GestureDetector(
+                onTap: () async {
+                  flag = false;
+                  await update.upgradeClearance(widget.uid, flag);
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  child: Text('Disminuir el nivel de acceso'),
+                ),
               ),
             ],
             FloatingActionButton(
@@ -78,12 +72,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
               },
               child: Icon(Icons.delete),
             ),
-            //Text('Eliminar Usuario?'),
-            /* IconButton(
-                onPressed: () async{
-                  
-                },
-                icon: const Icon(Icons.delete)), */
           ],
         ),
       ),
@@ -91,8 +79,15 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 }
 
-Widget userDetails(String tag, String data) {
+Widget userDetails(String tag, String data, Size size) {
   return Column(
-    children: [],
+    children: [
+      Text(
+        tag,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: size.height * 0.02),
+      ),
+      Text(data, style: TextStyle(fontSize: size.height * 0.02)),
+    ],
   );
 }

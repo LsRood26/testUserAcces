@@ -18,74 +18,62 @@ class _RegisterPageState extends State<RegisterPage> {
     final provider = Provider.of<ProviderLogin>(context);
     final auth = LoginAuth();
     return Scaffold(
-      body: Container(
-        width: size.width * 1,
-        height: size.height * 1,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: size.width * 0.5,
-              child: TextFormField(
-                controller: provider.correoController,
-                decoration: InputDecoration(hintText: 'Correo Electronico'),
+      body: SafeArea(
+        child: Container(
+          width: size.width * 1,
+          height: size.height * 1,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'Registrarse',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: size.height * 0.03),
               ),
-            ),
-            Container(
-              width: size.width * 0.5,
-              child: TextFormField(
-                controller: provider.nameController,
-                decoration: InputDecoration(hintText: 'name'),
-              ),
-            ),
-            Container(
-              width: size.width * 0.5,
-              child: TextFormField(
-                controller: provider.lastNameController,
-                decoration: InputDecoration(hintText: 'last name'),
-              ),
-            ),
-            Container(
-              width: size.width * 0.5,
-              child: TextFormField(
-                controller: provider.passwordController,
-                decoration: InputDecoration(hintText: 'password'),
-              ),
-            ),
-            Container(
-              color: Colors.black,
-              child: TextButton(
-                onPressed: () async {
-                  final uid = await auth.signUp(
-                      provider.correoController.text,
-                      provider.passwordController.text,
-                      provider.nameController.text,
-                      provider.lastNameController.text);
-                  /* if ( await auth.signUp(
-                          provider.correoController.text,
-                          provider.passwordController.text,
-                          provider.nameController.text,
-                          provider.lastNameController.text) ==
-                      null) */
-                  if (uid == null) {
-                    print('error');
-                  } else {
-                    provider.cleanInputslogin();
-                    Navigator.of(context).pushNamed('/homepage');
-                  }
-
-                  print('Registro exitoso');
-                },
-                child: Text(
-                  'Iniciar Sesión',
-                  style: TextStyle(color: Colors.white),
+              entryField('Correo Electronico', provider.correoController, size),
+              entryField('Nombre', provider.nameController, size),
+              entryField('Apellido', provider.lastNameController, size),
+              entryField('Contraseña', provider.passwordController, size),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.purple,
+                ),
+                child: TextButton(
+                  onPressed: () async {
+                    final uid = await auth.signUp(
+                        provider.correoController.text,
+                        provider.passwordController.text,
+                        provider.nameController.text,
+                        provider.lastNameController.text);
+                    if (uid == null) {
+                    } else {
+                      provider.cleanInputslogin();
+                      Navigator.of(context).pushNamed('/homepage');
+                    }
+                  },
+                  child: Text(
+                    'Iniciar Sesión',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+Widget entryField(
+    String etiqueta, TextEditingController controller, Size size) {
+  return Container(
+    width: size.width * 0.5,
+    child: TextFormField(
+      controller: controller,
+      decoration: InputDecoration(hintText: etiqueta),
+    ),
+  );
 }

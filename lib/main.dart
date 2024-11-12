@@ -5,7 +5,6 @@ import 'package:test_useracces/firebase_options.dart';
 import 'package:test_useracces/providers/provider_login.dart';
 import 'package:test_useracces/screens/home.dart';
 import 'package:test_useracces/screens/login.dart';
-import 'package:test_useracces/screens/new_user.dart';
 import 'package:test_useracces/screens/register.dart';
 
 void main() async {
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
           '/': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
           '/homepage': (context) => HomePage(),
-          '/newuser': (context) => NewUser(),
         });
   }
 }

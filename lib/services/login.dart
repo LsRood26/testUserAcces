@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+//MANEJA TODA LA LOGICA DE AUTENTICACION - COMUNICACION DIRECTA CON FIREBASE AUTH
 class LoginAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -12,10 +13,8 @@ class LoginAuth {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user not found') {
-        print('No user found with mail');
         return null;
       } else if (e.code == 'Wrong password') {
-        print('Wrong password provided');
         return null;
       }
       return null;
@@ -44,7 +43,6 @@ class LoginAuth {
 
       return uid;
     } on FirebaseAuthException catch (e) {
-      print(e);
       return null;
     }
   }

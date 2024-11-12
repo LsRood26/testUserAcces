@@ -1,43 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+//MANEJA PROCESOS DE ACTUALIZACION DE USUARIOS
 class UpdateService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+//DE ACUERDO AL FLAG, SE AUMENTA EL NIVEL DE ACCESO O SE REDUCE
   Future<void> upgradeClearance(String uid, bool flag) async {
     try {
       if (flag == true) {
         await firestore.collection('Users').doc(uid).update({"clearance": 2});
-        /* Fluttertoast.showToast(
-          msg: 'Actualizacion realizada exitosamente',
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.black,
-        ); */
       } else {
         await firestore.collection('Users').doc(uid).update({"clearance": 1});
-        /* Fluttertoast.showToast(
-          msg: 'Actualizacion realizada exitosamente',
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.black,
-        ); */
       }
-    } catch (e) {
-      Fluttertoast.showToast(
-        msg: 'Hubo un error al actualizar los permisos',
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-      );
-      print('error al actualizar $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> deleteUser(String uid) async {
     try {
       await firestore.collection('Users').doc(uid).delete();
-      print('Usuario Eliminado');
+    } catch (e) {}
+  }
+
+//RETORNA LISTA DE DOCUMENTOS (ZONAS) A LAS QUE EL USUARIO QUE PROVEE UID PUEDE ACCEDER
+  Future<List<DocumentSnapshot>> getAccessibleZones(String userId) async {
+    try {
+      DocumentSnapshot userDoc =
+          await firestore.collection('Users').doc(userId).get();
+      int clearance = userDoc['clearance'];
+
+      QuerySnapshot zonesSnapshot = await firestore
+          .collection('Zones')
+          .where('minClearance', isLessThanOrEqualTo: clearance)
+          .get();
+
+      return zonesSnapshot.docs;
     } catch (e) {
-      print('Error al eliminar usuario $e');
+      return [];
     }
   }
 }
