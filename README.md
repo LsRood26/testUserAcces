@@ -1,16 +1,11 @@
 # test_useracces
 
-A new Flutter project.
+Proyecto de registro de accesos de usuarios para zonas especificas.
 
-## Getting Started
+Proyecto realizado utilizando Flutter (Dart) y Firebase para el proceso de autenticacion y almacenamiento de datos.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+El proyecto permite que las personas se registren utilizando correo electronico y contraseña. Los usuarios administrador y usuarios regulares, pueden ver a que zonas tienen acceso al logearse.
+- Los usuarios administrador pueden ver una lista de los usuarios regulares, donde al presionar la tarjeta del usuario, pueden ver detalles del mismo y aumentar su nivel o reducirlo.
+- Usuarios de prueba:
+- Administrador jim@mail.com / 654321
+- usuario regular james@mail.com / 123456
