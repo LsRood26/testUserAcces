@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "812412800737",
+    "project_id": "test-useracces",
+    "storage_bucket": "test-useracces.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812412800737:android:1f60b04bee65e913c431a0",
+        "android_client_info": {
+          "package_name": "com.example.test_useracces"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQM83FBrUtqDsSvkrQ-E1qKi-DJUMX4bc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
